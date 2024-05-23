@@ -16,7 +16,6 @@ public class GamePlatform
                     return 0;
                 }
             }  
-			Console.WriteLine(speed);
          }
         return speed;
 
