@@ -1,65 +1,51 @@
-/* 25% */
-
 using System;
 
 public class RoutePlanner
 {
-    public static bool RouteExists(int fromRow, int fromColumn, int toRow, int toColumn,
-                                      bool[,] mapMatrix)
+    public static bool RouteExists(int fromRow, int fromColumn, int toRow, int toColumn, bool[,] mapMatrix)
     {
-        if(mapMatrix == null)
+        bool[,] visited = new bool[mapMatrix.GetLength(0), mapMatrix.GetLength(1)];
+        return DFS(fromRow, fromColumn, toRow, toColumn, mapMatrix, visited);
+    }
+
+    private static bool DFS(int row, int col, int toRow, int toCol, bool[,] mapMatrix, bool[,] visited)
+    {
+        if (row < 0 ||
+            col < 0 ||
+            row >= mapMatrix.GetLength(0) ||
+            col >= mapMatrix.GetLength(1) ||
+            !mapMatrix[row, col] ||
+            visited[row, col])
         {
             return false;
         }
-        if(toRow >= mapMatrix.GetLength(0))
+
+        if (row == toRow && col == toCol)
         {
-            return false;
-        }
-        
-        if(toColumn >= mapMatrix.GetUpperBound(1) + 1)
-        {
-            return false;
-        }
-        if(!mapMatrix[toRow, toColumn])
-        {
-            return false;
-        }
-        if(fromRow >= mapMatrix.GetLength(0))
-        {
-            return false;
-        }
-        if(fromColumn >= mapMatrix.GetUpperBound(1) + 1)
-        {
-            return false;
-        }
-        if(!mapMatrix[fromRow, fromColumn])
-        {
-            return false;
-        }
-        if(fromRow == toRow && fromColumn == toColumn){
             return true;
         }
-        
-        bool exists = RouteExists(fromRow + 1, fromColumn, toRow, toColumn, mapMatrix);
-        
-        if(!exists)
+
+        visited[row, col] = true;
+
+        if (DFS(row + 1, col, toRow, toCol, mapMatrix, visited) ||
+            DFS(row - 1, col, toRow, toCol, mapMatrix, visited) ||
+            DFS(row, col + 1, toRow, toCol, mapMatrix, visited) ||
+            DFS(row, col - 1, toRow, toCol, mapMatrix, visited))
         {
-            exists = RouteExists(fromRow, fromColumn + 1, toRow, toColumn, mapMatrix);  
+            return true;
         }
-        
-        return exists;
+
+        return false;
     }
-    
+
     public static void Main(string[] args)
     {
         bool[,] mapMatrix = {
-            {true, false, false},
-            {true, true, false},
-            {false, true, true}
+            { true, false, false },
+            { true, true, false },
+            { false, true, true }
         };
-        
+
         Console.WriteLine(RouteExists(0, 0, 2, 2, mapMatrix));
     }
 }
-
-// have to create a visited array otherwise you will get a stackoverflow
