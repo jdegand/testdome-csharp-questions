@@ -13,8 +13,6 @@ public class MegaStore
     {
         switch (discountType)
         {
-            case DiscountType.Standard:
-                return totalPrice - (totalPrice * 0.06);
             case DiscountType.Seasonal:
                 return totalPrice - (totalPrice * 0.12);
             case DiscountType.Weight:
