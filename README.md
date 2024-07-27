@@ -1,4 +1,3 @@
-# testdome-csharp-questions
-Test Dome C# Interview Questions
+# Test Dome C# Interview Questions
 
-[Test Dome](https://www.testdome.com/d/c-sharp-interview-questions/18)
+[Test Dome](https://www.testdome.com/tests/c-sharp-online-test/18)
