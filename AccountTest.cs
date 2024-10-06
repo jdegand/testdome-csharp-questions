@@ -10,7 +10,6 @@ public class Tester
     public void AccountCannotHaveNegativeOverdraftLimit()
     {
         Account account = new Account(-20);
-        
         Assert.AreEqual(0, account.OverdraftLimit, epsilon);
     }
     
